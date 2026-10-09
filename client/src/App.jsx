@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "https://mern-arisu3.vercel.app";
+const API_BASE_URL = "https://mern-3c4s.vercel.app";
 
 function App() {
-
-  const[students, setStudents] = useState([]);
-  const[name, setName] = useState("");
-  const[course, setCourse] = useState("");
-  const[age, setAge] = useState("");
-  const[editingId, setEditingId] = useState(null);
+  const [students, setStudents] = useState([]);
+  const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
+  const [age, setAge] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   const fetchStudents = () => {
     axios
@@ -88,92 +87,90 @@ function App() {
     setEditingId(null);
   };
 
-  return(
-    <div style={{padding: "20px", fontFamily: "sans-serif"}}>
+  return (
+    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
       <h1>Student Management System</h1>
 
-      <h2>{editingId ? "Edit Student": "Add Student"} </h2>
+      <h2>{editingId ? "Edit Student" : "Add Student"}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-      />
+        />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <input
+        <input
           type="text"
           placeholder="Course"
           value={course}
           onChange={(e) => setCourse(e.target.value)}
-      />
+        />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <input
+        <input
           type="number"
           placeholder="Age"
           value={age}
           onChange={(e) => setAge(e.target.value)}
-      />
+        />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <button type="submit">
-        {editingId ? "Update Student" : "Add Student"}
-      </button>
+        <button type="submit">
+          {editingId ? "Update Student" : "Add Student"}
+        </button>
 
-      {editingId && (
-        <button
-          type="button"
-          onClick={resetForm}
-          style={{marginLeft: "10px"}}
+        {editingId && (
+          <button
+            type="button"
+            onClick={resetForm}
+            style={{ marginLeft: "10px" }}
           >
             Cancel
           </button>
-      )}
-
+        )}
       </form>
 
-      <hr style={{margin: "20px 0"}} />
+      <hr style={{ margin: "20px 0" }} />
 
-
-      <h2> Students</h2>
+      <h2>Students</h2>
       {students.length === 0 ? (
         <p>No Students found.</p>
       ) : (
         students.map((student) => (
-          <div 
-          key={student._id}>
-          style={{
-            border: "1px solid #ccc",
-            padding: "10ppx",
-            marginBottom: "10px",
-            borderRadius: "4px",
-          }}
+          <div
+            key={student._id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              marginBottom: "10px",
+              borderRadius: "4px",
+            }}
+          >
+            <p>
+              <strong>Name:</strong> {student.name}
+            </p>
 
-          <p>
-            <strong>Name:</strong> {student.name}
-          </p>
+            <p>
+              <strong>Course:</strong> {student.course}
+            </p>
 
-          <p>
-            <strong>Course:</strong> {student.course}
-          </p>
+            <p>
+              <strong>Age:</strong> {student.age}
+            </p>
 
-          <p>
-            <strong>Age:</strong>{student.age}
-          </p>
-
-          <button onClick={() => handleEdit(student)}>Edit</button>
-          <button onClick={() => handleDelete(student._id)}>Delete</button>
-        </div>
-      ))
-    )}
+            <button onClick={() => handleEdit(student)}>Edit</button>
+            <button onClick={() => handleDelete(student._id)}>Delete</button>
+          </div>
+        ))
+      )}
     </div>
   );
 }
