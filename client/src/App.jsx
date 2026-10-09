@@ -60,7 +60,7 @@ function App() {
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ textAlign: 'center' }}>Student Management System</h1>
+      <h1 style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>Student Management System</h1>
       
       <form onSubmit={handleSubmit} style={{ background: '#f9f9f9', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
         <h3>{editingId ? 'Edit Student' : 'Add Student'}</h3>
