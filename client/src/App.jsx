@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "https://mern-arisu3.vercel.app"
+const API_BASE_URL = "https://mern-arisu3.vercel.app";
 
 function App() {
 
