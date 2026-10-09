@@ -4,16 +4,24 @@ const cors = require('cors');
 
 const app = express();
 
-
 app.use(cors());
 app.use(express.json());
 
-
 const MONGO_URI = "mongodb+srv://agustindm_db_user:AgustinPass2026@cluster0.qbn1oef.mongodb.net/student_db?retryWrites=true&w=majority";
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log("MongoDB Connected Successfully"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+
+let isConnected = false;
+async function connectDB() {
+  if (isConnected) return;
+  try {
+    await mongoose.connect(MONGO_URI, { bufferCommands: false });
+    isConnected = true;
+    console.log("MongoDB Connected Successfully");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    throw err;
+  }
+}
 
 
 const studentSchema = new mongoose.Schema({
@@ -32,6 +40,7 @@ app.get('/', (req, res) => {
 
 app.get('/students', async (req, res) => {
   try {
+    await connectDB();
     const students = await Student.find();
     res.json(students);
   } catch (err) {
@@ -42,6 +51,7 @@ app.get('/students', async (req, res) => {
 
 app.post('/students', async (req, res) => {
   try {
+    await connectDB();
     const newStudent = new Student({
       name: req.body.name,
       course: req.body.course,
@@ -54,8 +64,10 @@ app.post('/students', async (req, res) => {
   }
 });
 
+
 app.put('/students/:id', async (req, res) => {
   try {
+    await connectDB();
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
       {
@@ -77,6 +89,7 @@ app.put('/students/:id', async (req, res) => {
 
 app.delete('/students/:id', async (req, res) => {
   try {
+    await connectDB();
     const deletedStudent = await Student.findByIdAndDelete(req.params.id);
     if (!deletedStudent) {
       return res.status(404).json({ error: "Student not found" });
