@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_BASE_URL = "https://mern-arisu3.vercel.app/"
+const API_BASE_URL = "https://mern-arisu3.vercel.app"
 
 function App() {
 
@@ -142,7 +142,6 @@ function App() {
 
       <hr style={{margin: "20px 0"}} />
 
-      {/+ Student List*/}
 
       <h2> Students</h2>
       {students.length === 0 ? (
@@ -170,7 +169,7 @@ function App() {
             <strong>Age:</strong>{student.age}
           </p>
 
-          <button onClick={() => handleEdit(student)}>Edit</button>{""}
+          <button onClick={() => handleEdit(student)}>Edit</button>
           <button onClick={() => handleDelete(student._id)}>Delete</button>
         </div>
       ))
